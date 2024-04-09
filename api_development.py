@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from PIL import Image
 import numpy as np
@@ -7,6 +8,8 @@ import joblib
 import io
 
 app = Flask(__name__)
+
+CORS(app)
 
 # Load trained model
 loaded_model = tf.saved_model.load(r"C:\\Users\\Parsa\\Desktop\\Lungs ML model\\chest_xray_classification_model_20240407_071036")
