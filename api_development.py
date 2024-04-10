@@ -6,26 +6,12 @@ import numpy as np
 import tensorflow as tf
 import joblib
 import io
-import requests
 
 app = Flask(__name__)
+CORS(app)  # This will enable CORS for all routes
 
-CORS(app)
-# The URL of the file on OneDrive
-url = 'https://uottawa-my.sharepoint.com/personal/pshey040_uottawa_ca/_layouts/15/guestaccess.aspx?share=EssqmnhTvktLjxdExPc2wGgBqVKIG_LCYbtFup3r5IwDPA&e=TUuJ03'
-
-# Send a GET request to the URL
-response = requests.get(url)
-
-# Write the content of the response to a file
-with open('chest_xray_classification', 'wb') as f:
-    f.write(response.content)
-
-# Now load the model from the local path
-loaded_model = tf.saved_model.load('chest_xray_classification')
-
-# Get the concrete function for inference
-infer = loaded_model.signatures["serving_default"]
+# Load trained model
+loaded_model = None
 
 # Load label encoder
 le = joblib.load('labels_chest.pkl')
@@ -33,6 +19,14 @@ le = joblib.load('labels_chest.pkl')
 # API endpoint for prediction
 @app.route('/predict', methods=['POST'])
 def predict():
+    global loaded_model
+    # If the model is not loaded, load it
+    if loaded_model is None:
+        loaded_model = tf.saved_model.load(r"C:\\Users\\Parsa\\Desktop\\Lungs ML model\\chest_xray_classification_model_20240407_071036")
+
+    # Get the concrete function for inference
+    infer = loaded_model.signatures["serving_default"]
+
     file = request.files['file']
     # Read the file into a BytesIO object
     file = io.BytesIO(file.read())
