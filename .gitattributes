@@ -1,3 +1,4 @@
 *.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
 *.pyd filter=lfs diff=lfs merge=lfs -text
 C:/Users/Parsa/Desktop/Lungs[[:space:]]ML[[:space:]]model/chest_xray_classification_model_20240407_071036 filter=lfs diff=lfs merge=lfs -text
+chest_xray_classification_model_20240407_071036/* filter=lfs diff=lfs merge=lfs -text
