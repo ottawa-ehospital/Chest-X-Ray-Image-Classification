@@ -1,3 +1,5 @@
+import os
+import subprocess
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
@@ -7,12 +9,15 @@ import tensorflow as tf
 import joblib
 import io
 
+# Download the model file from GitHub
+subprocess.run(["git", "lfs", "pull"])
+
 app = Flask(__name__)
 
 CORS(app)
 
 # Load trained model
-loaded_model = tf.saved_model.load(r"C:\\Users\\Parsa\\Desktop\\Lungs ML model\\chest_xray_classification_model_20240407_071036")
+loaded_model = tf.saved_model.load("chest_xray_classification_model_20240407_071036")
 
 # Get the concrete function for inference
 infer = loaded_model.signatures["serving_default"]
