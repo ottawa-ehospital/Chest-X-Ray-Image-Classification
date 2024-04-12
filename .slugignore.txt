@@ -1,4 +1,4 @@
 devenv/
 preprocess_and_train.py
-chest_xray_classification_model_20240407_071036/*
+chest_xray_classification_model_20240407_071036/
 labels_chest.pkl
