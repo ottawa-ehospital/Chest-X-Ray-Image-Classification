@@ -10,17 +10,11 @@ import joblib
 import io
 import requests
 
-# Download the model file from GitHub
-model_url = "https://github.com/ottawa-ehospital/Chest-X-Ray-Image-Classification/raw/main/chest_xray_classification_model_20240407_071036"
-model_path = tf.keras.utils.get_file("chest_xray_classification_model_20240407_071036", model_url)
-
-# Download the label encoder file from GitHub
-le_url = "https://github.com/ottawa-ehospital/Chest-X-Ray-Image-Classification/raw/main/labels_chest.pkl"
-le_path = tf.keras.utils.get_file("labels_chest.pkl", le_url)
-
 app = Flask(__name__)
-
 CORS(app)
+
+# Define the path to the saved_model.pb file on Heroku
+model_path = '/app/chest_xray_classification_model_20240407_071036/saved_model.pb'
 
 # Load trained model
 loaded_model = tf.saved_model.load(model_path)
@@ -29,6 +23,7 @@ loaded_model = tf.saved_model.load(model_path)
 infer = loaded_model.signatures["serving_default"]
 
 # Load label encoder
+le_path = '/app/labels_chest.pkl'
 le = joblib.load(le_path)
 
 # API endpoint for prediction
