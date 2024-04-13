@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Debugging message
+# Debugging  message
 echo "Executing changed_permissions.sh script..."
 
 # Debugging message
