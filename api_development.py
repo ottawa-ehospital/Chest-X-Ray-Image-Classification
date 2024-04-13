@@ -14,7 +14,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Define the path to the saved_model.pb file on Heroku
-model_path = '/app/chest_xray_classification_model_20240407_071036/saved_model.pb'
+model_path = './chest_xray_classification_model_20240407_071036/saved_model.pb'
 
 # Load trained model
 loaded_model = tf.saved_model.load(model_path)
@@ -23,7 +23,7 @@ loaded_model = tf.saved_model.load(model_path)
 infer = loaded_model.signatures["serving_default"]
 
 # Load label encoder
-le_path = '/app/labels_chest.pkl'
+le_path = './labels_chest.pkl'
 le = joblib.load(le_path)
 
 # API endpoint for prediction
