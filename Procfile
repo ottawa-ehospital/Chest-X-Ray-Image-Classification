@@ -1,2 +1,1 @@
-release: ./change_permissions.bat
-web: gunicorn api_development:app
+release: ./change_permissions.sh && gunicorn api_development:app
